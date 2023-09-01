@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="sentencePanel" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onDeleteKeyPressed" onMouseClicked="#onSentencePanelClick" prefHeight="50.0" prefWidth="615.0" style="-fx-background-color: #DC143C;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.SentenceController">
+   <children>
+      <HBox fx:id="radioBox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="32.0">
+         <children>
+            <RadioButton fx:id="radioButton1" mnemonicParsing="false">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="onlyOne" />
+               </toggleGroup>
+            </RadioButton>
+         </children>
+      </HBox>
+      <HBox fx:id="wordBox" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="524.0">
+         <children>
+            <TextField fx:id="textField" onKeyPressed="#onEnterKeyPressed" prefHeight="26.0" prefWidth="63.0" />
+         </children>
+      </HBox>
+      <HBox fx:id="deleteBox" alignment="CENTER" prefHeight="50.0" prefWidth="64.0" />
+   </children>
+</HBox>
