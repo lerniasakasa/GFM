@@ -20,11 +20,10 @@
             </RadioButton>
          </children>
       </HBox>
-      <HBox fx:id="wordBox" alignment="CENTER_LEFT"  prefHeight="50.0" prefWidth="524.0">
+      <HBox fx:id="wordBox" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="579.0">
          <children>
             <TextField fx:id="textField" onKeyPressed="#onEnterKeyPressed" prefHeight="26.0" prefWidth="63.0" />
          </children>
       </HBox>
-      <HBox fx:id="deleteBox" alignment="CENTER" prefHeight="50.0" prefWidth="64.0" />
    </children>
 </HBox>

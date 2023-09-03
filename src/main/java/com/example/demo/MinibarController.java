@@ -4,10 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -23,6 +22,11 @@ public class MinibarController {
     private ToggleGroup globalToggleGroup = new ToggleGroup();
 
     private int radioButtonCounter = 1; // Counter for generating unique IDs
+
+    @FXML
+    private ScrollPane wordsPane;
+
+
 
 
 
@@ -49,6 +53,7 @@ public class MinibarController {
             // Get access to the individual elements within the HBox
             RadioButton radioButton = (RadioButton) loader.getNamespace().get("radioButton1");
             TextField textField = (TextField) loader.getNamespace().get("textField");
+            textField.setId("textField"); // Set its ID
             //Button deleteButton = (Button) loader.getNamespace().get("deleteButton");
 
             // Set alignment to center the HBox within the tester VBox
@@ -76,9 +81,49 @@ public class MinibarController {
 
             // Set mapping between sentence panel and radio button
             sentenceController.setSentencePanelToRadioButtonMapping(sentencePanel, radioButton);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    void populateWordsPane() {
+        // Create a VBox to hold the numbers
+        VBox numberContainer = new VBox();
+        numberContainer.setSpacing(10); // Set spacing between numbers
+
+        int maxNumbersPerRow = 50; // Maximum number of numbers per row
+        int totalNumbers = 800; // Total number of numbers to display
+        int currentNumber = 1;
+
+        for (int row = 0; row < totalNumbers / maxNumbersPerRow; row++) {
+            // Create an HBox for each row
+            HBox rowContainer = new HBox();
+            rowContainer.setSpacing(10); // Adjust spacing as needed
+
+            for (int col = 0; col < maxNumbersPerRow; col++) {
+                // Create a Label for each number
+                Label numberLabel = new Label(Integer.toString(currentNumber));
+                //numberLabel.setOnMouseClicked(event -> onWordLabelClick(event)); // Set the click event handler
+                numberLabel.setStyle("-fx-border-color: black;"); // Add border for better visualization
+                rowContainer.getChildren().add(numberLabel);
+
+                currentNumber++;
+
+                if (currentNumber > totalNumbers) {
+                    break; // All numbers added
+                }
+            }
+
+            // Add the row to the VBox
+            numberContainer.getChildren().add(rowContainer);
+        }
+
+        // Set the content of the wordsPane to the VBox
+        wordsPane.setContent(numberContainer);
+    }
+
+
+
 
 }

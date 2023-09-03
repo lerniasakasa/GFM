@@ -26,6 +26,8 @@ public class SentenceController {
     // Map to link sentence panels to radio buttons
     private Map<HBox, RadioButton> sentencePanelToRadioButtonMap = new HashMap<>();
 
+
+
     private String concatenateTextFields(HBox sentencePanel) {
         HBox wordBox = (HBox) sentencePanel.lookup("#wordBox");
         StringBuilder concatenatedText = new StringBuilder();
@@ -55,6 +57,7 @@ public class SentenceController {
 
         // Create a new TextField instance
         TextField newTextField = new TextField();
+        newTextField.setId("textField");
         newTextField.setPrefHeight(sourceTextField.getPrefHeight());
         newTextField.setOnKeyPressed(this::onEnterKeyPressed);
 
@@ -118,8 +121,6 @@ public class SentenceController {
             textFieldList.remove(lastTextField);
         }
     }
-
-
 
 
 }

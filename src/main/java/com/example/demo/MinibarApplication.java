@@ -18,6 +18,12 @@ public class MinibarApplication extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
+
+        // Get the controller instance
+        MinibarController controller = fxmlLoader.getController();
+
+        // Call the populateWordsPane() method to initialize it
+        controller.populateWordsPane();
     }
 
     public static void main(String[] args) {
