@@ -9,7 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +25,16 @@ public class MinibarController {
 
     private int radioButtonCounter = 1; // Counter for generating unique IDs
 
+    public List<HBox> globalSentencePanelList = new ArrayList<>();
+
     @FXML
     private ScrollPane wordsPane;
+
+    private SentenceController currentSelectedSentenceController;
+
+    public void setCurrentSelectedSentenceController(SentenceController controller) {
+        this.currentSelectedSentenceController = controller;
+    }
 
 
 
@@ -49,9 +59,12 @@ public class MinibarController {
         try {
             HBox sentencePanel = loader.load();
             SentenceController sentenceController = loader.getController();
+            sentenceController.setMinibarController(this);
+            sentenceController.setGlobalToggleGroup(globalToggleGroup);
 
             // Get access to the individual elements within the HBox
             RadioButton radioButton = (RadioButton) loader.getNamespace().get("radioButton1");
+            radioButton.getStyleClass().add("my-radio-button");
             TextField textField = (TextField) loader.getNamespace().get("textField");
             textField.setId("textField"); // Set its ID
             //Button deleteButton = (Button) loader.getNamespace().get("deleteButton");
@@ -82,11 +95,18 @@ public class MinibarController {
             // Set mapping between sentence panel and radio button
             sentenceController.setSentencePanelToRadioButtonMapping(sentencePanel, radioButton);
 
+            sentenceController.setSentencePanelList(globalSentencePanelList);
+            globalSentencePanelList.add(sentencePanel);
+
+            System.out.println(globalSentencePanelList.size());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
+    @FXML
     void populateWordsPane() {
         // Create a VBox to hold the numbers
         VBox numberContainer = new VBox();
@@ -104,7 +124,13 @@ public class MinibarController {
             for (int col = 0; col < maxNumbersPerRow; col++) {
                 // Create a Label for each number
                 Label numberLabel = new Label(Integer.toString(currentNumber));
-                //numberLabel.setOnMouseClicked(event -> onWordLabelClick(event)); // Set the click event handler
+                // Set the click event handler
+                numberLabel.setOnMouseClicked(event -> {
+                    System.out.println(numberLabel.getText());
+                    if (currentSelectedSentenceController != null) {
+                        currentSelectedSentenceController.populateTextField(numberLabel.getText());
+                    }
+                });
                 numberLabel.setStyle("-fx-border-color: black;"); // Add border for better visualization
                 rowContainer.getChildren().add(numberLabel);
 
@@ -122,6 +148,37 @@ public class MinibarController {
         // Set the content of the wordsPane to the VBox
         wordsPane.setContent(numberContainer);
     }
+
+    @FXML
+    private void onUploadButtonClick(){
+        // Create a FileChooser object
+        FileChooser fileChooser = new FileChooser();
+
+        // Optional: Set extension filters
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show open file dialog and store user-selected file in a File object
+        File file = fileChooser.showOpenDialog(null);
+
+        // Do something with the file (e.g., read it, display it, etc.)
+        if(file != null){
+            // Logic for handling the selected file
+            System.out.println("Selected file: " + file.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private Label concatLabel; // fx:id="concatLabel" in MiniBar.fxml
+
+    public void setConcatLabel(String text) {
+        if (concatLabel != null) {
+            concatLabel.setText(text);
+        } else {
+            System.out.println("concatLabel is null");
+        }
+    }
+
 
 
 

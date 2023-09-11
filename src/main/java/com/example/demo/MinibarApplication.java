@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import org.grammaticalfamework.pgf.*;
+
 import java.io.IOException;
 
 public class MinibarApplication extends Application {
@@ -13,9 +15,11 @@ public class MinibarApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MinibarApplication.class.getResource("minibar.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 800);
-        stage.setTitle("Hello!");
+        stage.setTitle("Grammatical Framework Minibar");
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+
+
         stage.setScene(scene);
         stage.show();
 
