@@ -6,7 +6,12 @@
 
     <groupId>com.example</groupId>
     <artifactId>demo</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>demo-gf</module>
+        <module>untitled</module>
+    </modules>
     <name>demo</name>
 
     <properties>
@@ -38,6 +43,19 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>demo-gf</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- gf-core-master dependency
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>gf-core-master</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>/Users/yusuf_budullah/IdeaProjects/GFM/src/lib/gf-core-master.jar</systemPath>
+        </dependency>-->
     </dependencies>
 
     <build>

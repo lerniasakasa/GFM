@@ -6,11 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="demo" />
+        <module name="demo-gf" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="demo" target="17" />
+      <module name="demo-gf" target="17" />
+      <module name="gf-core-master" target="17" />
+      <module name="gf-core-master-maven" target="17" />
+      <module name="untitled" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MinibarController {
 
     @FXML
@@ -49,8 +50,31 @@ public class MinibarController {
             // reset the counter for the next radioButton ID
             radioButtonCounter = 1;
 
+            // Get the last remaining panel
+            HBox lastRemainingPanel = (HBox) tester.getChildren().get(0);
+
+            // Locate its wordBox
+            HBox wordBox = (HBox) lastRemainingPanel.lookup("#wordBox");
+
+            if (wordBox != null && !wordBox.getChildren().isEmpty()) {
+                // Store the first TextField
+                Node firstTextField = wordBox.getChildren().get(0);
+
+                // Clear all TextFields from the wordBox
+                wordBox.getChildren().clear();
+
+                // Add back the first TextField and clear its text
+                wordBox.getChildren().add(firstTextField);
+                if (firstTextField instanceof TextField) {
+                    ((TextField) firstTextField).clear();
+                }
+
+                // Update the concatenated string to be displayed
+                currentSelectedSentenceController.displayConcatenatedText(lastRemainingPanel);
+            }
         }
     }
+
 
     @FXML
     private void onAddButtonClick() {
@@ -179,8 +203,29 @@ public class MinibarController {
         }
     }
 
+    @FXML
+    private void onRemoveButtonClick() {
+        if (currentSelectedSentenceController != null) {
+            // Get the selected HBox from the current SentenceController
+            HBox selectedPanel = currentSelectedSentenceController.getSelectedPanel();
 
+            // Remove the associated RadioButton from the ToggleGroup
+            RadioButton radioButton = currentSelectedSentenceController.getSentencePanelToRadioButtonMap().get(selectedPanel);
+            if (radioButton != null) {
+                radioButton.getToggleGroup().getToggles().remove(radioButton);
+            }
 
+            // Remove the selected HBox from the VBox
+            tester.getChildren().remove(selectedPanel);
 
+            // Remove the mappings and lists entries related to this sentencePanel
+            currentSelectedSentenceController.getSentencePanelToRadioButtonMap().remove(selectedPanel);
+            currentSelectedSentenceController.getSentencePanelList().remove(selectedPanel);
+
+            // Optionally, reset the currentSelectedSentenceController
+            currentSelectedSentenceController = null;
+            setConcatLabel("");
+        }
+    }
 
 }

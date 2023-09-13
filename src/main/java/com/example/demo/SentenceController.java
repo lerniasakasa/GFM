@@ -40,6 +40,19 @@ public class SentenceController {
         this.globalToggleGroup = globalToggleGroup;
     }
 
+    public HBox getSelectedPanel() {
+        return selectedPanel;
+    }
+
+    public Map<HBox, RadioButton> getSentencePanelToRadioButtonMap() {
+        return sentencePanelToRadioButtonMap;
+    }
+
+    public List<HBox> getSentencePanelList() {
+        return sentencePanelList;
+    }
+
+
 
 
     private String concatenateTextFields(HBox sentencePanel) {
@@ -194,10 +207,15 @@ public class SentenceController {
         if (childrenCount > 1) {
             TextField lastTextField = (TextField) wordBox.getChildren().get(childrenCount - 1);
             wordBox.getChildren().remove(lastTextField);
+        } else if (childrenCount == 1) {
+            // If only one TextField remains, clear its text instead of removing it.
+            TextField remainingTextField = (TextField) wordBox.getChildren().get(0);
+            remainingTextField.clear();
         }
     }
 
-    private void displayConcatenatedText(HBox sentencePanel) {
+
+    public void displayConcatenatedText(HBox sentencePanel) {
         String text = concatenateTextFields(sentencePanel);
         System.out.println("Selected panel text: " + text);
         if (minibarController != null) {
@@ -228,6 +246,8 @@ public class SentenceController {
             }
         }
     }
+
+
 
 
 
