@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import org.grammaticalfamework.pgf.*;
+//import org.grammaticalfamework.pgf.*;
 
 import java.io.IOException;
 
